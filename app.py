@@ -1,3 +1,8 @@
+import sys
+import subprocess
+
+subprocess.check_call([sys.executable, "-m", "pip", "install", "dash"])
+
 import dash
 from dash import dcc
 from dash import html
@@ -22,7 +27,12 @@ app.config.suppress_callback_exceptions = True
 # Load data from csv
 def load_data():
     # To do: Completar la función 
-    
+    df = pd.read_csv(
+        r"D:\Documentos\Uniandes\Despliegue de Soluciona Analiticas\Taller_1\datos_energia.csv"
+    )
+    df["fecha"] = pd.to_datetime(df["time"])
+    df = df.set_index("fecha")
+    return df
 
 # Cargar datos
 data = load_data()
